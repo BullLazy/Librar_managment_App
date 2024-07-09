@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kütüphane Yönetim Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Kütüphane Yönetim Sistemi</h1>
+    </header>
+    <div class="container">
+        <h2>Kitap Ekle</h2>
+        <form action="{{ url_for('add') }}" method="post">
+            <input type="text" name="title" placeholder="Kitap Adı" required>
+            <input type="text" name="author" placeholder="Yazar" required>
+            <input type="number" name="year" placeholder="Yıl" required>
+            <button type="submit">Ekle</button>
+        </form>
+        
+        <h2>Mevcut Kitaplar</h2>
+        <ul>
+            {% for book in books %}
+            <li>
+                <span>{{ book[1] }} - <a href="https://en.wikipedia.org/wiki/Special:Search?search={{ book[2] }}" target="_blank">{{ book[2] }}</a> ({{ book[3] }})</span>
+                <a href="{{ url_for('delete', book_id=book[0]) }}">Sil</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
